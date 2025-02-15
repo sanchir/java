@@ -3,6 +3,9 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 前営業日取得クラス
+ */
 public class Previous_Business_Day {
     
     public static void main(String[] args) {
