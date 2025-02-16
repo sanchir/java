@@ -68,7 +68,13 @@ public class PreviousBusinessDay {
 
         holidays.add(LocalDate.of(date.getYear(), 2, 11));  // 建国記念の日
         holidays.add(LocalDate.of(date.getYear(), 2, 23));  // 天皇誕生日
-        holidays.add(LocalDate.of(date.getYear(), 3, 20));  // 春分の日
+
+        // 春分の日を計算 (国立天文台, National Astronomical Observatory of Japan, NAOJ)
+        int daysSince = date.getYear() - 1980;
+        double equinox = 0.242194;
+        int springDay = (int) Math.floor(20.8431 + equinox * daysSince - daysSince / 4);
+        holidays.add(LocalDate.of(date.getYear(), 3, springDay));  // 春分の日
+
         holidays.add(LocalDate.of(date.getYear(), 4, 29));  // 昭和の日
         holidays.add(LocalDate.of(date.getYear(), 5, 3));   // 憲法記念日
         holidays.add(LocalDate.of(date.getYear(), 5, 4));   // みどりの日
@@ -91,8 +97,15 @@ public class PreviousBusinessDay {
         }
         respectDay = respectDay.plusDays(14);
         holidays.add(respectDay);                            // 敬老の日
+        
+        // 秋分の日を計算 (国立天文台, National Astronomical Observatory of Japan, NAOJ)
+        int autumnDay = (int) Math.floor(23.2488 + equinox * daysSince - daysSince / 4);
+        // 秋分の日が水曜日の場合、火曜日を「国民の休日」として追加する。
+        if (LocalDate.of(date.getYear(), 9, autumnDay).getDayOfWeek() == DayOfWeek.WEDNESDAY) {
+            holidays.add(LocalDate.of(date.getYear(), 9, autumnDay - 1));   // 国民の休日
+        }
 
-        holidays.add(LocalDate.of(date.getYear(), 9, 23));   // 秋分の日
+        holidays.add(LocalDate.of(date.getYear(), 9, autumnDay));   // 秋分の日
 
         // スポーツの日 10月の第2月曜日
         LocalDate sportDay = LocalDate.of(date.getYear(), 10, 1); 
