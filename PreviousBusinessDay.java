@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * 前営業日取得クラス
  */
-public class Previous_Business_Day {
+public class PreviousBusinessDay {
     
     public static void main(String[] args) {
         LocalDate today = LocalDate.now();
